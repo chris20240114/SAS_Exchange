@@ -1,0 +1,72 @@
+{% extends 'core/base.html' %}
+
+{%block title%} Register as seller {%endblock%}
+
+{% block content %}
+
+<form method = "GET">
+    {{ form.SellerForm }}
+</form> 
+
+<div class="w-1/2 my-6 mx-auto p-6 bg-gray-100 rounded-xl">
+    <h1 class="mb-6 text-3xl">Register as seller</h1>
+
+    <form method="post" action=".">
+        {% csrf_token %}
+
+        {{ form.non_field_errors }}
+
+        <div class="mb-3">
+            <label class="inline-block mb-2">First name</label><br>
+            {{ form.First_Name }}
+        </div>
+
+        <div class="mb-3">
+            <label class="inline-block mb-2">Last Name</label><br>
+            {{ form.Last_Name }}
+        </div>
+
+        <div class="mb-3">
+            <label class="inline-block mb-2">1. What do you plan on selling? Clothes/Handmade Items/Books/Art Supplies/Others...</label><br>
+            {{ form.Product_Type }}
+        </div>
+
+        <div class="mb-3">
+            <label class="inline-block mb-2">2. Do you have experience selling secondhand?</label><br>
+            {{ form.Experience }}
+        </div>
+
+        <div class="mb-3">
+            <label class="inline-block mb-2">3. Introduce yourself: (Name,School,Age)</label><br>
+            {{ form.Introduction }}
+        </div>
+
+        <div class="mb-3">
+            <label class="inline-block mb-2">4. Contact Information (Wechat ID or Instagram)</label><br>
+            {{ form.Information }}
+        </div>
+
+        <div class="mb-3">
+            <label class="inline-block mb-2">5. Are you in the SASEXCHANGE group chat?</label><br>
+            {{ form.GroupChat }}
+        </div>
+
+        <div class="mb-3">
+            <label class="inline-block mb-2">6. Any Questions?</label><br>
+            {{ form.Questions }}
+        </div>
+
+        {% if form.errors or form.non_field_errors %}
+            <div class="mb-3 p-6 bg-red-100 rounded-xl">
+                {% for field in form %}
+                    {{ field.errors }}
+                {% endfor %}
+
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+        <button class="py-4 px-8 text-xl bg-[#FA5F55] hover:bg-teal-700 rounded-xl text-white">Send Application</button>
+    </form>
+</div>
+
+{% endblock %}
