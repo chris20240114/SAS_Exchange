@@ -3,6 +3,7 @@ from item.models import Category, Item
 from django.contrib.auth.decorators import login_required
 from .models import Seller
 from .forms import SignupForm, SellerForm
+from django.contrib.auth import logout
 from django import *
 
 def index(request):
@@ -51,3 +52,7 @@ def registerSeller(request):
     return render(request, 'core/seller.html', {
         'form':form
     })
+
+def user_logout(request):
+    logout(request)
+    return redirect('core:index')

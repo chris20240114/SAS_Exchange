@@ -1,6 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.models import User
+from core.models import Seller
 
 #from item.forms / from item.models
 from .forms import NewItemForm, EditItemForm
@@ -14,7 +16,6 @@ def detail(request, pk):
         'item' : item,
         'related_items' : related_items
     })
-
 
 def items(request):
     query = request.GET.get('query', '')
@@ -38,22 +39,25 @@ def items(request):
     
 @login_required
 def new(request):
-    if request.method == 'POST':
-        form = NewItemForm(request.POST, request.FILES)
+    if Seller.get_approval() == False:
+        return redirect('/seller/')
+    elif Seller.get_approval() == True:
+        if request.method == 'POST':
+            form = NewItemForm(request.POST, request.FILES)
 
-        if form.is_valid():
-            item = form.save(commit=False)
-            item.created_by = request.user
-            item.save()
+            if form.is_valid():
+                item = form.save(commit=False)
+                item.created_by = request.user
+                item.save()
 
-            return redirect('item:detail', pk=item.id)
-    else:
-        form = NewItemForm()
+                return redirect('item:detail', pk=item.id)
+        else:
+            form = NewItemForm()
 
-    return render(request, 'item/form.html', {
-        'form': form,
-        'title': 'New item',
-    })
+        return render(request, 'item/form.html', {
+            'form': form,
+            'title': 'New item',
+        })
 
 @login_required
 def edit(request, pk):
