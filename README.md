@@ -2,6 +2,8 @@
 
 A full-featured peer-to-peer marketplace platform built with Django. SAS Exchange allows users to list items for sale, browse available products, and communicate with other buyers and sellers through an integrated messaging system.
 
+SAS: Shanghai American School puxi. This project was built in 2023 meant for the use of Shanghai American School puxi students.
+
 ## 🎯 Project Overview
 
 SAS Exchange is a production-grade marketplace application designed to facilitate item trading and selling between authenticated users. The platform includes seller verification, item categorization, search functionality, and real-time user communication—demonstrating full-stack web development capabilities.
